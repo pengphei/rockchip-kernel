@@ -22,7 +22,7 @@
 		rockchip,wake-irq = <0>;
 		/* If enable uart uses irq instead of fiq */
 		rockchip,irq-mode-enable = <1>;
-		rockchip,baudrate = <1500000>;  /* Only 115200 and 1500000 */
+		rockchip,baudrate = <115200>;  /* Only 115200 and 1500000 */
 		interrupts = <GIC_SPI 252 IRQ_TYPE_LEVEL_LOW>;
 		pinctrl-names = "default";
 		pinctrl-0 = <&uart2m0_xfer>;
@@ -55,6 +55,21 @@
 		ftrace-size = <0x00000>;
 		pmsg-size = <0x50000>;
 	};
+};
+
+&rk809_codec {
+	#sound-dai-cells = <0>;
+	compatible = "rockchip,rk809-codec", "rockchip,rk817-codec";
+	clocks = <&cru I2S1_MCLKOUT>;
+	clock-names = "mclk";
+	assigned-clocks = <&cru I2S1_MCLKOUT>, <&cru I2S1_MCLK_TX_IOE>;
+	assigned-clock-rates = <12288000>;
+	assigned-clock-parents = <&cru I2S1_MCLKOUT_TX>, <&cru I2S1_MCLKOUT_TX>;
+	pinctrl-names = "default";
+	pinctrl-0 = <&i2s1m0_mclk &hp_det>;
+	hp-volume = <20>;
+	spk-volume = <3>;
+	status = "okay";
 };
 
 &rng {
