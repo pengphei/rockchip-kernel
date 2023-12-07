@@ -1786,7 +1786,7 @@ static irqreturn_t rga_irq(int irq,  void *dev_id)
 	return IRQ_WAKE_THREAD;
 }
 
-struct file_operations rga_fops = {
+static struct file_operations rga_fops = {
 	.owner		= THIS_MODULE,
 	.open		= rga_open,
 	.release	= rga_release,

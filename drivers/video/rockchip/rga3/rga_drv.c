@@ -1175,7 +1175,7 @@ static irqreturn_t rga_isr_thread(int irq, void *data)
 	return irq_ret;
 }
 
-const struct file_operations rga_fops = {
+static const struct file_operations rga_fops = {
 	.owner = THIS_MODULE,
 	.open = rga_open,
 	.release = rga_release,
