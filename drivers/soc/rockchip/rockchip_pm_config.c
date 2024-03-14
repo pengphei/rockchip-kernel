@@ -34,7 +34,7 @@ enum rk_pm_state {
 	RK_PM_STATE_MAX
 };
 
-#ifndef MODULE
+#if !defined(MODULE) && defined(CONFIG_SUSPEND)
 static const char * const pm_state_str[RK_PM_STATE_MAX] = {
 	[RK_PM_MEM] = "mem",
 	[RK_PM_MEM_LITE] = "mem-lite",
@@ -69,7 +69,7 @@ static const struct of_device_id pm_match_table[] = {
 	{ },
 };
 
-#ifndef MODULE
+#if !defined(MODULE) && defined(CONFIG_SUSPEND)
 static void rockchip_pm_virt_pwroff_prepare(void)
 {
 	int error;
@@ -176,7 +176,7 @@ static int pm_config_probe(struct platform_device *pdev)
 	u32 sleep_debug_en = 0;
 	u32 apios_suspend = 0;
 	u32 io_ret_config = 0;
-#ifndef MODULE
+#if !defined(MODULE) && defined(CONFIG_SUSPEND)
 	u32 virtual_poweroff_en = 0;
 #endif
 	enum of_gpio_flags flags;
@@ -259,7 +259,7 @@ static int pm_config_probe(struct platform_device *pdev)
 				 ret);
 	}
 
-#ifndef MODULE
+#if !defined(MODULE) && defined(CONFIG_SUSPEND)
 	if (!of_property_read_u32_array(node,
 					"rockchip,virtual-poweroff",
 					&virtual_poweroff_en, 1) &&
@@ -275,7 +275,7 @@ static int pm_config_probe(struct platform_device *pdev)
 	return 0;
 }
 
-#ifndef MODULE
+#if !defined(MODULE) && defined(CONFIG_SUSPEND)
 static int pm_config_prepare(struct device *dev)
 {
 	int i;
@@ -330,7 +330,7 @@ static struct platform_driver pm_driver = {
 	.driver = {
 		.name = "rockchip-pm",
 		.of_match_table = pm_match_table,
-#ifndef MODULE
+#if !defined(MODULE) && defined(CONFIG_SUSPEND)
 		.pm = &rockchip_pm_ops,
 #endif
 	},
